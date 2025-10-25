@@ -1,340 +1,430 @@
 /* --- Нова темна палітра (чорно-синя) --- */
+/* :root визначає глобальні CSS змінні (variables), 
+   які можна використовувати по всьому файлу. Це спрощує зміну теми. */
 :root {
-  --primary-color: #3182ce;
-  --secondary-color: #2b6cb0;
-  --bg-color: #1a202c;
-  --card-bg: #2d3748;
-  --text-color: #e2e8f0;
-  --text-color-secondary: #a0aec0;
-  --border-color: #4a5568;
-  --success-color: #38a169;
-  --error-color: #e53e3e;
-  --transit-bg: #f6e05e;
-  --transit-text: #744210;
-  --delivered-bg: #68d391;
-  --delivered-text: #22543d;
-  --pending-bg: #f56565;
-  --pending-text: #742a2a;
+  /* Основні кольори теми */
+  --primary-color: #3182ce;       /* Яскравий синій для акцентів (кнопки, посилання) */
+  --secondary-color: #2b6cb0;    /* Темніший синій для hover-ефектів */
+  --bg-color: #1a202c;           /* Дуже темний фон сторінки */
+  --card-bg: #2d3748;            /* Темний фон для карток, шапки, підвалу */
+  --text-color: #e2e8f0;         /* Світлий основний текст */
+  --text-color-secondary: #a0aec0;/* Більш тьмяний текст (підписи, footer) */
+  --border-color: #4a5568;       /* Колір рамок */
+  
+  /* Кольори для повідомлень та кнопок */
+  --success-color: #38a169;      /* Зелений для успіху (кнопка "Додати") */
+  --error-color: #e53e3e;         /* Червоний для помилок (валідація) */
+  
+  /* Кольори для фону та тексту статусів */
+  --transit-bg: #f6e05e;         /* Фон для "У дорозі" */
+  --transit-text: #744210;        /* Текст для "У дорозі" */
+  --delivered-bg: #68d391;       /* Фон для "Доставлено" */
+  --delivered-text: #22543d;       /* Текст для "Доставлено" */
+  --pending-bg: #f56565;         /* Фон для "Очікує" */
+  --pending-text: #742a2a;         /* Текст для "Очікує" */
 }
 
+/* --- Загальні стилі для сторінки --- */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    display: grid;
+    font-family: Arial, sans-serif; /* Базовий шрифт */
+    margin: 0;                     /* Прибираємо стандартні відступи */
+    background-color: var(--bg-color); /* Встановлюємо темний фон */
+    color: var(--text-color);        /* Встановлюємо світлий текст */
+    
+    /* CSS Grid Layout для основного макету сторінки */
+    display: grid; 
+    /* Визначаємо 4 рядки: шапка(auto), навігація(auto), контент(1fr - займає весь доступний простір), підвал(auto) */
     grid-template-rows: auto auto 1fr auto; 
+    /* Визначаємо імена для областей сітки */
     grid-template-areas:
         "header"
         "nav"
         "main"
         "footer";
-    min-height: 100vh;
+    /* Гарантуємо, що сторінка завжди займає щонайменше 100% висоти вікна */
+    min-height: 100vh; 
 }
 
-/* --- Стилізація основних блоків --- */
+/* --- Стилізація основних блоків макету --- */
+
+/* Шапка сайту */
 .header {
-    grid-area: header;
-    background-color: var(--card-bg);
-    color: var(--text-color);
-    text-align: center;
-    padding: 1.2rem;
-    border-bottom: 2px solid var(--border-color);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    grid-area: header; /* Розміщуємо блок в області 'header' */
+    background-color: var(--card-bg); /* Темний фон */
+    color: var(--text-color);        /* Світлий текст */
+    text-align: center;           /* Центруємо заголовок */
+    padding: 1.2rem;               /* Внутрішні відступи */
+    border-bottom: 2px solid var(--border-color); /* Нижня рамка */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тінь */
 }
 
+/* Підвал сайту */
 .footer {
-    grid-area: footer;
-    background-color: var(--card-bg);
-    color: var(--text-color-secondary);
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-    border-top: 1px solid var(--border-color);
+    grid-area: footer; /* Розміщуємо блок в області 'footer' */
+    background-color: var(--card-bg); /* Темний фон */
+    color: var(--text-color-secondary); /* Тьмяніший текст */
+    text-align: center;           /* Центруємо текст */
+    padding: 1rem;                 /* Внутрішні відступи */
+    margin-top: 2rem;              /* Зовнішній відступ зверху */
+    border-top: 1px solid var(--border-color); /* Верхня рамка */
 }
 
+/* Навігаційна панель */
 .navigation {
-    grid-area: nav;
-    background-color: var(--card-bg);
-    border-bottom: 2px solid var(--border-color);
+    grid-area: nav; /* Розміщуємо блок в області 'nav' */
+    background-color: var(--card-bg); /* Темний фон */
+    border-bottom: 2px solid var(--border-color); /* Нижня рамка */
 }
+
+/* Список посилань в навігації */
 .navigation ul {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; 
-    margin: 0;
-    padding: 0.5rem;
-    list-style: none;
+    display: flex;             /* Використовуємо Flexbox для розташування пунктів в ряд */
+    justify-content: center; /* Центруємо пункти по горизонталі */
+    flex-wrap: wrap;         /* Дозволяємо перенесення пунктів на новий рядок (для адаптивності) */
+    margin: 0;                 /* Прибираємо стандартні відступи списку */
+    padding: 0.5rem;           /* Невеликі внутрішні відступи */
+    list-style: none;        /* Прибираємо маркери списку */
 }
+
+/* Окремі посилання в навігації */
 .navigation a {
-    display: block;
-    text-decoration: none;
-    color: var(--primary-color);
-    padding: 0.75rem 1.5rem;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
+    display: block;            /* Робимо посилання блочними елементами */
+    text-decoration: none;   /* Прибираємо підкреслення */
+    color: var(--primary-color); /* Синій колір тексту */
+    padding: 0.75rem 1.5rem;   /* Внутрішні відступи для зручності кліку */
+    font-weight: bold;         /* Жирний шрифт */
+    border-radius: 5px;        /* Заокруглені кути */
+    /* Плавний перехід кольору фону та тексту при наведенні/активації */
+    transition: background-color 0.3s, color 0.3s; 
+    cursor: pointer;           /* Показуємо курсор "рука" */
 }
+
+/* Стилі для АКТИВНОГО посилання (з класом .active) та при НАВЕДЕННІ миші */
 .navigation a.active, .navigation a:hover {
-    background-color: var(--primary-color);
-    color: #ffffff;
+    background-color: var(--primary-color); /* Синій фон */
+    color: #ffffff;                        /* Білий текст */
 }
 
+/* Контейнер для основного контенту сторінки */
 .container {
-    grid-area: main;
-    width: 95%;
-    max-width: 1400px;
-    margin: 2rem auto;
-    display: grid;
+    grid-area: main;      /* Розміщуємо блок в області 'main' */
+    width: 95%;           /* Ширина 95% від батьківського елемента */
+    max-width: 1400px;    /* Максимальна ширина контейнера */
+    margin: 2rem auto;    /* Центруємо контейнер горизонтально з відступами зверху/знизу */
+    display: grid;        /* Використовуємо Grid для розташування секцій */
+    /* Завжди 1 колонка, бо вкладки керують відображенням секцій */
     grid-template-columns: 1fr; 
-    gap: 2rem; 
+    gap: 2rem;            /* Відстань між елементами сітки (якщо їх більше одного) */
 }
 
-/* --- Секції, таблиця, зображення --- */
+/* --- Стилі для секцій, таблиці, зображень --- */
 
-/* Логіка приховування/показу вкладок */
+/* Загальні стилі для всіх секцій контенту (вкладок) */
 .section {
-    display: none; /* Всі секції за замовчуванням приховані */
-    background: var(--card-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border-color);
-}
-.section.active {
-    display: block; /* Активна секція стає видимою */
+    display: none; /* За замовчуванням всі секції приховані */
+    background: var(--card-bg); /* Темний фон */
+    padding: 1.5rem;            /* Внутрішні відступи */
+    border-radius: 8px;         /* Заокруглені кути */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Тінь */
+    border: 1px solid var(--border-color);    /* Рамка */
 }
 
-/* Спеціальний стиль для вкладки дашборду (для паралаксу) */
-.section#dashboard {
-    padding: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
+/* Стиль для ВИДИМОЇ (активної) секції */
+.section.active {
+    display: block; /* Робимо секцію видимою */
 }
-/* Повертаємо стилі для таблиці, яка лежить всередині */
+
+/* Спеціальний стиль для секції "Панель управління" (для паралаксу) */
+/* Перевизначаємо деякі стилі .section, щоб прибрати фон і рамки, 
+   оскільки фон задається паралакс-контейнером всередині. */
+.section#dashboard {
+    padding: 0;         /* Прибираємо внутрішні відступи */
+    background: none;   /* Прибираємо фон */
+    border: none;       /* Прибираємо рамку */
+    box-shadow: none;   /* Прибираємо тінь */
+}
+
+/* Стилі для контейнера з таблицею (всередині вкладки "Панель") */
+/* Повертаємо вигляд "картки" для таблиці */
 .dashboard-table-container {
     background: var(--card-bg);
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--border-color);
-    margin-top: 2rem;
+    margin-top: 2rem; /* Відступ від паралакс-блоку зверху */
 }
 
-
+/* Стиль для зображення (зараз використовується в паралаксі, але залишаємо для сумісності) */
 .responsive-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    width: 100%;           /* Зображення займає всю ширину батька */
+    height: auto;          /* Висота підлаштовується автоматично */
+    border-radius: 8px;    /* Заокруглені кути */
+    margin-bottom: 1rem;   /* Відступ знизу */
 }
 
+/* Контейнер для таблиці, що дозволяє горизонтальну прокрутку */
 .table-container {
-    overflow-x: auto; 
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid var(--border-color);
-}
-th {
-    background-color: #3c4a5f;
-    color: var(--text-color);
+    overflow-x: auto; /* Додаємо скрол, якщо таблиця не влазить по ширині */
 }
 
-/* Статуси */
-.status {
-    padding: 0.25rem 0.6rem;
-    border-radius: 12px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    white-space: nowrap;
+/* Загальні стилі таблиці */
+table {
+    width: 100%;            /* Таблиця займає всю доступну ширину */
+    border-collapse: collapse; /* Прибираємо подвійні рамки між комірками */
 }
+
+/* Стилі для комірок заголовка (th) та даних (td) */
+th, td {
+    padding: 0.75rem 1rem; /* Внутрішні відступи */
+    text-align: left;    /* Вирівнювання тексту по лівому краю */
+    border-bottom: 1px solid var(--border-color); /* Нижня межа для розділення рядків */
+}
+
+/* Стилі ТІЛЬКИ для комірок заголовка (th) */
+th {
+    background-color: #3c4a5f; /* Фон заголовків */
+    color: var(--text-color);   /* Колір тексту заголовків */
+}
+
+/* --- Стилі для плашок статусів --- */
+.status {
+    padding: 0.25rem 0.6rem; /* Маленькі внутрішні відступи */
+    border-radius: 12px;     /* Сильно заокруглені кути (форма капсули) */
+    font-size: 0.85rem;      /* Менший розмір шрифту */
+    font-weight: bold;       /* Жирний шрифт */
+    white-space: nowrap;     /* Забороняємо перенесення тексту статусу */
+}
+/* Специфічні кольори для кожного статусу (фон + текст) */
 .status-transit { background-color: var(--transit-bg); color: var(--transit-text); }
 .status-delivered { background-color: var(--delivered-bg); color: var(--delivered-text); }
 .status-pending { background-color: var(--pending-bg); color: var(--pending-text); }
 
-/* --- Форма --- */
+/* --- Стилі для форми --- */
+
+/* Контейнер для групи елементів форми (label + input + error) */
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.25rem; /* Відступ між групами */
 }
+
+/* Стилі для підписів полів (label) */
 .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text-color-secondary);
+    display: block;         /* Робимо label блочним (переноситься на новий рядок) */
+    margin-bottom: 0.5rem;  /* Відступ знизу від input'а */
+    font-weight: 600;       /* Трохи жирніший шрифт */
+    color: var(--text-color-secondary); /* Тьмяніший колір */
 }
+
+/* Стилі для текстових полів вводу (input[type="text"]) */
 .form-group input[type="text"] {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    box-sizing: border-box; 
-    background-color: #1a202c;
-    color: var(--text-color);
+    width: 100%;              /* Займає всю ширину батька */
+    padding: 0.75rem;         /* Внутрішні відступи */
+    border: 1px solid var(--border-color); /* Рамка */
+    border-radius: 4px;       /* Легке заокруглення кутів */
+    /* Важливо для коректного розрахунку ширини з padding та border */
+    box-sizing: border-box;  
+    background-color: #1a202c; /* Фон поля вводу */
+    color: var(--text-color);   /* Колір тексту, що вводиться */
 }
+
+/* Стилі для поля вводу, коли воно У ФОКУСІ (коли користувач в ньому друкує) */
 .form-group input[type="text"]:focus {
-    border-color: var(--primary-color);
-    outline: none;
-    box-shadow: 0 0 5px rgba(49, 130, 206, 0.5);
+    border-color: var(--primary-color); /* Змінюємо колір рамки на синій */
+    outline: none;                    /* Прибираємо стандартний контур браузера */
+    /* Додаємо синю тінь для візуального акценту */
+    box-shadow: 0 0 5px rgba(49, 130, 206, 0.5); 
 }
 
-/* --- Кнопки --- */
+/* --- Стилі для кнопок --- */
+
+/* Кнопка відправки форми */
 .btn-submit {
-    width: 100%;
-    padding: 0.85rem;
-    background-color: var(--success-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    width: 100%;              /* Займає всю ширину */
+    padding: 0.85rem;         /* Збільшені відступи */
+    background-color: var(--success-color); /* Зелений фон */
+    color: white;             /* Білий текст */
+    border: none;             /* Без рамки */
+    border-radius: 5px;       /* Заокруглення */
+    font-size: 1rem;          /* Розмір шрифту */
+    font-weight: bold;        /* Жирний шрифт */
+    cursor: pointer;          /* Курсор "рука" */
+    /* Плавний перехід кольору фону при наведенні */
+    transition: background-color 0.3s; 
 }
+
+/* Стиль кнопки відправки при наведенні миші */
 .btn-submit:hover {
-    background-color: #2f855a;
+    background-color: #2f855a; /* Темніший зелений */
 }
+
+/* Кнопки "Деталі" в таблиці */
 .btn-details {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 0.5rem 0.75rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    background-color: var(--primary-color); /* Синій фон */
+    color: white;             /* Білий текст */
+    border: none;             /* Без рамки */
+    padding: 0.5rem 0.75rem;  /* Менші відступи */
+    border-radius: 5px;       /* Заокруглення */
+    cursor: pointer;          /* Курсор "рука" */
+    transition: background-color 0.3s; /* Плавний перехід */
 }
+
+/* Стиль кнопки "Деталі" при наведенні */
 .btn-details:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color); /* Темніший синій */
 }
 
-/* --- Помилки та Модальне вікно --- */
+/* --- Стилі для повідомлень про помилки та Модального вікна --- */
+
+/* Стилі для тексту помилки валідації */
 .error-message {
-    color: var(--error-color);
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-    height: 1em; 
+    color: var(--error-color); /* Червоний колір тексту */
+    font-size: 0.875rem;     /* Трохи менший шрифт */
+    margin-top: 0.25rem;     /* Невеликий відступ зверху */
+    /* Резервуємо місце під текст, щоб форма не "стрибала", коли помилка з'являється/зникає */
+    height: 1em;             
 }
 
+/* Стилі для модального вікна (фон-затемнення) */
 .modal {
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed;   /* Фіксоване позиціонування відносно вікна браузера */
+    z-index: 1000;     /* Високий z-index, щоб бути поверх усього */
+    left: 0; top: 0;   /* Покриває весь екран */
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Напівпрозорий чорний фон */
+    display: flex;         /* Використовуємо Flexbox для центрування контенту */
+    align-items: center;   /* Центруємо по вертикалі */
+    justify-content: center;/* Центруємо по горизонталі */
     
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
+    /* Для плавного з'явлення/зникнення */
+    opacity: 0;            /* Початково повністю прозоре */
+    visibility: hidden;    /* І приховане */
+    transition: opacity 0.3s, visibility 0.3s; /* Анімація переходу */
 }
+
+/* Стилі для ВІДКРИТОГО модального вікна (коли додано клас .open) */
 .modal.open {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1;            /* Робимо непрозорим */
+    visibility: visible;   /* Робимо видимим */
 }
 
+/* Стилі для блоку контенту модального вікна */
 .modal-content {
-    background-color: var(--card-bg);
-    padding: 2rem;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
-    position: relative;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    transform: scale(0.9);
-    transition: transform 0.3s;
-    border: 1px solid var(--border-color);
+    background-color: var(--card-bg); /* Темний фон */
+    padding: 2rem;                 /* Великі внутрішні відступи */
+    border-radius: 8px;            /* Заокруглення */
+    width: 90%;                    /* Ширина (на мобільних) */
+    max-width: 500px;              /* Максимальна ширина */
+    position: relative;            /* Для позиціонування кнопки закриття */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5); /* Сильніша тінь */
+    /* Анімація появи (збільшення) */
+    transform: scale(0.9);         /* Початково трохи зменшене */
+    transition: transform 0.3s;    /* Плавний перехід */
+    border: 1px solid var(--border-color); /* Рамка */
 }
+
+/* Стилі для контенту ВІДКРИТОГО модального вікна */
 .modal.open .modal-content {
-    transform: scale(1);
+    transform: scale(1);           /* Повертаємо нормальний розмір */
 }
 
+/* Стилі для кнопки закриття ("хрестик") */
 .modal-close {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
+    color: #aaa;              /* Сірий колір */
+    position: absolute;        /* Абсолютне позиціонування відносно .modal-content */
+    top: 10px; right: 20px;   /* Розташування у верхньому правому куті */
+    font-size: 28px;           /* Розмір "хрестика" */
     font-weight: bold;
-    cursor: pointer;
+    cursor: pointer;           /* Курсор "рука" */
 }
+
+/* Стиль "хрестика" при наведенні */
 .modal-close:hover {
-    color: var(--text-color);
+    color: var(--text-color);  /* Робимо яскравішим */
 }
+
+/* Заголовок всередині модального вікна */
 .modal-content h2 {
-    margin-top: 0;
-    color: var(--primary-color);
+    margin-top: 0;             /* Прибираємо стандартний відступ зверху */
+    color: var(--primary-color); /* Синій колір */
 }
+
+/* Текст (параграфи) всередині модального вікна */
 .modal-content p {
-    line-height: 1.6;
+    line-height: 1.6;        /* Збільшений міжрядковий інтервал для читабельності */
 }
 
-/* --- Стилі для паралаксу (як у React) --- */
+/* --- Стилі для паралаксу --- */
+/* Контейнер, до якого застосовується ефект */
 .parallax-container {
-  min-height: 70vh; 
-  background-position: center center; 
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white; 
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 8px; 
+  min-height: 70vh; /* Висота контейнера = 70% висоти вікна */
+  background-position: center center; /* Початкова позиція фону - центр */
+  background-repeat: no-repeat;     /* Фон не повторюється */
+  background-size: cover;           /* Фон масштабується, щоб покрити весь контейнер */
+  position: relative;               /* Для позиціонування контенту всередині */
+  overflow: hidden;                 /* Обрізаємо все, що виходить за межі */
+  display: flex;                    /* Flex для центрування контенту */
+  align-items: center;              /* Центруємо контент по вертикалі */
+  justify-content: center;          /* Центруємо контент по горизонталі */
+  color: white;                     /* Білий колір тексту для контенту */
+  /* Сильна тінь для тексту, щоб він читався на будь-якому фоні */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Легка тінь для самого блоку */
+  border-radius: 8px;               /* Заокруглення кутів */
 }
+
+/* Контейнер для тексту всередині паралакс-блоку */
 .parallax-content {
-  text-align: center;
-  z-index: 2;
-  padding: 2rem;
+  text-align: center;            /* Центруємо текст */
+  z-index: 2;                    /* Щоб текст був НАД фоном */
+  padding: 2rem;                 /* Внутрішні відступи */
+  /* Напівпрозорий чорний фон для кращої читабельності тексту */
   background-color: rgba(0, 0, 0, 0.5); 
-  border-radius: 10px;
+  border-radius: 10px;           /* Заокруглення кутів фону */
 }
+
+/* Заголовок всередині паралаксу */
 .parallax-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;             /* Великий розмір шрифту */
+  margin-bottom: 1rem;           /* Відступ знизу */
 }
+
+/* Текст параграфа всередині паралаксу */
 .parallax-content p {
-  font-size: 1.2rem;
-  line-height: 1.5;
+  font-size: 1.2rem;             /* Розмір шрифту */
+  line-height: 1.5;              /* Міжрядковий інтервал */
 }
 
 
-/* --- Адаптивність --- */
+/* --- Адаптивність (Media Queries) --- */
+/* Стилі, що застосовуються ТІЛЬКИ на екранах шириною 600px або менше (мобільні) */
 @media (max-width: 600px) {
+    /* Навігація: робимо пункти вертикальними */
     .navigation ul {
         flex-direction: column; 
-        align-items: stretch;
+        align-items: stretch; /* Розтягуємо пункти на всю ширину */
     }
     .navigation a {
-        text-align: center;
+        text-align: center; /* Центруємо текст в кнопках */
     }
+    /* Заголовок: зменшуємо шрифт */
     .header h1 {
         font-size: 1.5rem;
     }
+    /* Контейнер: прибираємо бічні відступи */
     .container {
         width: 100%;
         margin-top: 1rem;
     }
+    /* Секції: прибираємо заокруглення і зменшуємо відступи */
     .section { 
         padding: 1rem;
         border-radius: 0;
     }
+    /* Паралакс: зменшуємо заголовок */
     .parallax-content h2 {
         font-size: 1.8rem;
     }
+    /* Таблиця: також прибираємо заокруглення */
     .dashboard-table-container {
         padding: 1rem;
         border-radius: 0;
