@@ -2,17 +2,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // === ЛОГІКА ПАРАЛАКСУ ===
-    // Ми будемо слухати прокрутку всього вікна
     window.addEventListener('scroll', () => {
-        // Знаходимо елемент паралаксу, АЛЕ ТІЛЬКИ ЯКЩО ВІН ВИДИМИЙ
-        // (тобто, якщо ми на вкладці 'dashboard')
         const parallaxElement = document.querySelector('#dashboard.active .parallax-container');
         
         if (parallaxElement) {
-            const scrolled = window.scrollY; // Скільки прокручено від верху
-            
-            // Рухаємо фон ВНИЗ (позитивне значення) зі швидкістю 0.4 від швидкості скролу
-            // Це створює ілюзію, що фон рухається повільніше, ніж сторінка
+            const scrolled = window.scrollY;
             parallaxElement.style.backgroundPositionY = `${scrolled * 0.4}px`;
         }
     });
@@ -30,13 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const tabId = clickedLink.dataset.tab; 
         
-        // 1. Оновлюємо посилання
         navLinks.forEach(link => {
             link.classList.remove('active');
         });
         clickedLink.classList.add('active');
 
-        // 2. Оновлюємо контент
         contentSections.forEach(section => {
             section.classList.remove('active');
             if (section.id === tabId) {
@@ -44,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // 3. Якщо перейшли на звіти, оновлюємо статистику
         if (tabId === 'reports') {
             updateStats();
         }
@@ -166,8 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             form.reset(); 
             attachModalListeners(); // "Оживляємо" нову кнопку
             
-            // Оновлюємо статистику (оскільки ми додали новий)
-            updateStats();
+            updateStats(); // Оновлюємо статистику
 
             // Переходимо на вкладку "Панель управління"
             navLinksContainer.querySelector('a[data-tab="dashboard"]').click();
