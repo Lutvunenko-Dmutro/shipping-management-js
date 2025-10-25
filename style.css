@@ -1,0 +1,342 @@
+/* --- Нова темна палітра (чорно-синя) --- */
+:root {
+  --primary-color: #3182ce;
+  --secondary-color: #2b6cb0;
+  --bg-color: #1a202c;
+  --card-bg: #2d3748;
+  --text-color: #e2e8f0;
+  --text-color-secondary: #a0aec0;
+  --border-color: #4a5568;
+  --success-color: #38a169;
+  --error-color: #e53e3e;
+  --transit-bg: #f6e05e;
+  --transit-text: #744210;
+  --delivered-bg: #68d391;
+  --delivered-text: #22543d;
+  --pending-bg: #f56565;
+  --pending-text: #742a2a;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: grid;
+    grid-template-rows: auto auto 1fr auto; 
+    grid-template-areas:
+        "header"
+        "nav"
+        "main"
+        "footer";
+    min-height: 100vh;
+}
+
+/* --- Стилізація основних блоків --- */
+.header {
+    grid-area: header;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    text-align: center;
+    padding: 1.2rem;
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.footer {
+    grid-area: footer;
+    background-color: var(--card-bg);
+    color: var(--text-color-secondary);
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.navigation {
+    grid-area: nav;
+    background-color: var(--card-bg);
+    border-bottom: 2px solid var(--border-color);
+}
+.navigation ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    margin: 0;
+    padding: 0.5rem;
+    list-style: none;
+}
+.navigation a {
+    display: block;
+    text-decoration: none;
+    color: var(--primary-color);
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
+}
+.navigation a.active, .navigation a:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.container {
+    grid-area: main;
+    width: 95%;
+    max-width: 1400px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 2rem; 
+}
+
+/* --- Секції, таблиця, зображення --- */
+
+/* Логіка приховування/показу вкладок */
+.section {
+    display: none; /* Всі секції за замовчуванням приховані */
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+}
+.section.active {
+    display: block; /* Активна секція стає видимою */
+}
+
+/* Спеціальний стиль для вкладки дашборду (для паралаксу) */
+.section#dashboard {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+/* Повертаємо стилі для таблиці, яка лежить всередині */
+.dashboard-table-container {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    margin-top: 2rem;
+}
+
+
+.responsive-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.table-container {
+    overflow-x: auto; 
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+th {
+    background-color: #3c4a5f;
+    color: var(--text-color);
+}
+
+/* Статуси */
+.status {
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.status-transit { background-color: var(--transit-bg); color: var(--transit-text); }
+.status-delivered { background-color: var(--delivered-bg); color: var(--delivered-text); }
+.status-pending { background-color: var(--pending-bg); color: var(--pending-text); }
+
+/* --- Форма --- */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-color-secondary);
+}
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    box-sizing: border-box; 
+    background-color: #1a202c;
+    color: var(--text-color);
+}
+.form-group input[type="text"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 5px rgba(49, 130, 206, 0.5);
+}
+
+/* --- Кнопки --- */
+.btn-submit {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-submit:hover {
+    background-color: #2f855a;
+}
+.btn-details {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-details:hover {
+    background-color: var(--secondary-color);
+}
+
+/* --- Помилки та Модальне вікно --- */
+.error-message {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    height: 1em; 
+}
+
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s;
+    border: 1px solid var(--border-color);
+}
+.modal.open .modal-content {
+    transform: scale(1);
+}
+
+.modal-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-close:hover {
+    color: var(--text-color);
+}
+.modal-content h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+.modal-content p {
+    line-height: 1.6;
+}
+
+/* --- Стилі для паралаксу (як у React) --- */
+.parallax-container {
+  min-height: 70vh; 
+  background-position: center center; 
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; 
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px; 
+}
+.parallax-content {
+  text-align: center;
+  z-index: 2;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.5); 
+  border-radius: 10px;
+}
+.parallax-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.parallax-content p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+
+/* --- Адаптивність --- */
+@media (max-width: 600px) {
+    .navigation ul {
+        flex-direction: column; 
+        align-items: stretch;
+    }
+    .navigation a {
+        text-align: center;
+    }
+    .header h1 {
+        font-size: 1.5rem;
+    }
+    .container {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    .section { 
+        padding: 1rem;
+        border-radius: 0;
+    }
+    .parallax-content h2 {
+        font-size: 1.8rem;
+    }
+    .dashboard-table-container {
+        padding: 1rem;
+        border-radius: 0;
+    }
+}

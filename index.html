@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система управління контейнерами (Локально)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <h1>🚢 Система управління перевезеннями (Локально)</h1>
+    </header>
+
+    <nav class="navigation">
+        <ul id="navLinks">
+            <li><a href="#" class="active" data-tab="dashboard">Панель управління</a></li>
+            <li><a href="#" data-tab="add">Додати контейнер</a></li>
+            <li><a href="#" data-tab="reports">Звіти</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        
+        <!-- === ОНОВЛЕНО: Секція 1 (Панель управління) === -->
+        <section id="dashboard" class="section active">
+            
+            <!-- Блок паралаксу -->
+            <div class="parallax-container" style="background-image: url('containers.jpg');">
+              <div class="parallax-content">
+                <h2>Активні Контейнери & Моніторинг</h2>
+                <p>Ефективне управління вашими перевезеннями в реальному часі.</p>
+              </div>
+            </div>
+
+            <!-- Блок таблиці (обгорнутий для стилів) -->
+            <div class="dashboard-table-container">
+              <h2>Список активних контейнерів</h2>
+              <div class="table-container">
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>ID Контейнера</th>
+                              <th>Статус</th>
+                              <th>Місцезнаходження</th>
+                              <th>Призначення</th>
+                              <th>Дії</th>
+                          </tr>
+                      </thead>
+                      <tbody id="containerTableBody">
+                          <tr>
+                              <td>UA-123456</td>
+                              <td><span class="status status-transit">У дорозі</span></td>
+                              <td>Порт Одеса</td>
+                              <td>Порт Гамбург</td>
+                              <td><button class="btn-details">Деталі</button></td>
+                          </tr>
+                          <tr>
+                              <td>UA-654321</td>
+                              <td><span class="status status-delivered">Доставлено</span></td>
+                              <td>Склад (Київ)</td>
+                              <td>Склад (Київ)</td>
+                              <td><button class="btn-details">Деталі</button></td>
+                          </tr>
+                          <tr>
+                              <td>UA-789012</td>
+                              <td><span class="status status-pending">Очікує</span></td>
+                              <td>Порт Роттердам</td>
+                              <td>Склад (Львів)</td>
+                              <td><button class="btn-details">Деталі</button></td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+        </section>
+
+        <!-- Секція 2: Форма додавання (без змін) -->
+        <section id="add" class="section">
+            <h2>Додати новий контейнер</h2>
+            <form id="addContainerForm">
+                <!-- ... (вміст форми без змін) ... -->
+                <div class="form-group">
+                    <label for="containerId">ID Контейнера:</label>
+                    <input type="text" id="containerId" name="containerId" placeholder="Напр., UA-112233" required>
+                    <div class="error-message" id="idError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="location">Поточне місцезнаходження:</label>
+                    <input type="text" id="location" name="location" required>
+                    <div class="error-message" id="locationError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="destination">Призначення:</label>
+                    <input type="text" id="destination" name="destination" required>
+                    <div class="error-message" id="destinationError"></div>
+                </div>
+                <button type="submit" class="btn-submit">Додати</button>
+            </form>
+        </section>
+        
+        <!-- Секція 3: Звіти (без змін) -->
+        <section id="reports" class="section">
+            <h2>Звіти: Поточний стан</h2>
+            <!-- ... (вміст звітів без змін) ... -->
+            <p>Ця сторінка показує просту аналітику...</p>
+            <ul style="font-size: 1.2rem; line-height: 1.8;">
+              <li><strong>Загальна кількість контейнерів:</strong> <span id="stats-total">0</span></li>
+              <li><strong>Кількість у дорозі:</strong> <span id="stats-transit">0</span></li>
+              <li><strong>Кількість доставлених:</strong> <span id="stats-delivered">0</span></li>
+              <li><strong>Кількість в очікуванні:</strong> <span id="stats-pending">0</span></li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Модульна робота, Дмитро Литвиненко. Всі права захищено.</p>
+    </footer>
+
+    <!-- Модальне вікно (без змін) -->
+    <div id="detailsModal" class="modal">
+        <!-- ... (вміст модального вікна без змін) ... -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
