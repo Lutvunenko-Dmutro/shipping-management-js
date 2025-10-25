@@ -22,7 +22,7 @@
 
     <main class="container">
         
-        <!-- === ОНОВЛЕНО: Секція 1 (Панель управління) === -->
+        <!-- === Секція 1 (Панель управління) === -->
         <section id="dashboard" class="section active">
             
             <!-- Блок паралаксу -->
@@ -75,11 +75,10 @@
             </div>
         </section>
 
-        <!-- Секція 2: Форма додавання (без змін) -->
+        <!-- Секція 2: Форма додавання -->
         <section id="add" class="section">
             <h2>Додати новий контейнер</h2>
             <form id="addContainerForm">
-                <!-- ... (вміст форми без змін) ... -->
                 <div class="form-group">
                     <label for="containerId">ID Контейнера:</label>
                     <input type="text" id="containerId" name="containerId" placeholder="Напр., UA-112233" required>
@@ -99,11 +98,11 @@
             </form>
         </section>
         
-        <!-- Секція 3: Звіти (без змін) -->
+        <!-- Секція 3: Звіти -->
         <section id="reports" class="section">
             <h2>Звіти: Поточний стан</h2>
-            <!-- ... (вміст звітів без змін) ... -->
-            <p>Ця сторінка показує просту аналітику...</p>
+            <p>Ця сторінка показує просту аналітику на основі активного списку контейнерів. Цифри оновлюються при додаванні нових контейнерів.</p>
+            
             <ul style="font-size: 1.2rem; line-height: 1.8;">
               <li><strong>Загальна кількість контейнерів:</strong> <span id="stats-total">0</span></li>
               <li><strong>Кількість у дорозі:</strong> <span id="stats-transit">0</span></li>
@@ -118,9 +117,16 @@
         <p>&copy; 2025 Модульна робота, Дмитро Литвиненко. Всі права захищено.</p>
     </footer>
 
-    <!-- Модальне вікно (без змін) -->
+    <!-- Модальне вікно -->
     <div id="detailsModal" class="modal">
-        <!-- ... (вміст модального вікна без змін) ... -->
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h2>Деталі контейнера</h2>
+            <p><strong>ID:</strong> <span id="modal-id"></span></p>
+            <p><strong>Статус:</strong> <span id="modal-status"></span></p>
+            <p><strong>Локація:</strong> <span id="modal-location"></span></p>
+            <p><strong>Призначення:</strong> <span id="modal-destination"></span></p>
+        </div>
     </div>
 
     <script src="script.js"></script>
